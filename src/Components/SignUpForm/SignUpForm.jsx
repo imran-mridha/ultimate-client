@@ -38,10 +38,9 @@ const SignUpForm = () => {
   const finalSubmit = () => {
     if (state.password.length < 8) {
       return toast.error('Password Must Be 8 Character')
-    } else {
-      // toast.error('Please fillup all input field')
-      toast.success('Form Submited')
-    }
+    } 
+
+    // fetch('/')
   }
   return (
     <div className="rounded-md shadow-md p-5">
