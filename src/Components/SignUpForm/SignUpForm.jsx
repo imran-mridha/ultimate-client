@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
-import {Link} from 'react-router-dom'
-
+import {Link,useNavigate} from 'react-router-dom'
 const SignUpForm = () => {
+  const navigate = useNavigate()
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0])
   const [state, setState] = useState({
@@ -26,7 +26,7 @@ const SignUpForm = () => {
     if (formNo === 1 && state.first_name && state.last_Name) {
       setFormNo(formNo + 1)
     }
-    else if (formNo === 2 && state.phone_number && state.email) {
+    else if (formNo === 2 && state.phone_number && state.email,state.email) {
       setFormNo(formNo + 1)
     } else {
       toast.error('Please fillup all input field')
@@ -39,9 +39,31 @@ const SignUpForm = () => {
     if (state.password.length < 8) {
       return toast.error('Password Must Be 8 Character')
     } 
+    saveUser(state.first_name,state.last_Name,state.phone_number,state.email,state.password, state.date);
 
-    // fetch('/')
+    navigate('/login')
+
   }
+
+  const saveUser = (first_name,last_Name,phone_number, email,password,date) => {
+    const signUpUser = { first_name,last_Name,phone_number, email,password, date};
+
+
+    fetch(`https://test.nexisltd.com/signup`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(signUpUser),
+    })
+  
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+
   return (
     <div className="rounded-md shadow-md p-5">
       <h2 className="text-2xl text-center my-10">Sign Up Form</h2>

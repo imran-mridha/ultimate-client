@@ -1,7 +1,9 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+
 
 const LoginForm = () => {
+  const navigate = useNavigate()
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -9,6 +11,28 @@ const LoginForm = () => {
     const password = form.password.value;
 
     console.log(email, password);
+
+    saveUser(email,password);
+    navigate('/attendance')
+  };
+
+  const saveUser = (email, password) => {
+    const loginUser = { email, password};
+
+    fetch('https://test.nexisltd.com/login', {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(loginUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if(data.access_token){
+          localStorage.setItem('access_token', data.access_token)
+        }
+      });
   };
   return (
     <div className="rounded-md shadow-md p-5">

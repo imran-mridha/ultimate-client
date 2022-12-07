@@ -6,7 +6,7 @@ import SignUpPage from "../../Pages/SignUpPage/SignUpPage";
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Attendance />,
+    element: <SignUpPage />,
   },
   {
     path: 'sign-up',
@@ -15,5 +15,10 @@ export const router = createBrowserRouter([
   {
     path: 'login',
     element: <LogInPage />
+  },
+  {
+    path: 'attendance',
+    element: <Attendance />
   }
+  
 ])
